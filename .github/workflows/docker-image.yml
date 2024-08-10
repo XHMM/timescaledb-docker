@@ -1,16 +1,16 @@
 name: Release Docker Image
 on:
   push:
-    branches: [ release_docker, dev-build ]
+    branches: [release_docker, dev-build]
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release'
+        description: "Version to release"
         required: true
       # This is a manual workaround until the latest tagging is fixed:
       # https://github.com/timescale/timescaledb-docker/issues/205
       no_tag_latest:
-        description: 'Do not tag the published images as latest'
+        description: "Do not tag the published images as latest"
         type: boolean
         required: false
         default: false
@@ -18,17 +18,16 @@ env:
   ORG: timescale #timescaledev
   TS_VERSION: ${{ github.event.inputs.version || '2.15.0' }}
 jobs:
-
   # Build multi-arch TimescaleDB images for both TSL and OSS code.
   timescaledb:
-
+    environment: docker
     name: PG${{ matrix.pg }}${{ matrix.oss }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         pg: [14, 15, 16]
-        oss: [ "", "-oss" ]
+        oss: ["", "-oss"]
     steps:
       - uses: actions/checkout@v4
 
@@ -55,4 +54,3 @@ jobs:
           fi
           make multi${{ matrix.oss }} ORG=$ORG PG_VER=pg${{ matrix.pg }} \
               TS_VERSION=$TS_VERSION PREV_EXTRA="${{ matrix.oss }}" BETA=$BETA
-
