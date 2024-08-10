@@ -75,6 +75,29 @@ RUN set -ex; \
         apk del .pgai-deps; \
     fi
 
+
+ARG PGMQ_VERSION
+RUN set -ex; \
+    apk update; \
+    apk add --no-cache --virtual .pgmq-deps \
+        ca-certificates \
+        clang \
+        curl \
+        gcc \
+        git \
+        libssl-dev \
+        make \
+        pkg-config \
+	    postgresql-server-dev-${PG_VERSION} \
+    git clone --branch ${PGMQ_VERSION} https://github.com/tembo-io/pgmq.git /build/pgmq; \
+    cd /build/pgmq; \
+    cd pgmq-extension; \
+    make; \
+    make install; \
+    make install-pg-partman; \
+    apk del .pgmq-deps
+
+    
 COPY docker-entrypoint-initdb.d/* /docker-entrypoint-initdb.d/
 COPY --from=tools /go/bin/* /usr/local/bin/
 COPY --from=oldversions /usr/local/lib/postgresql/timescaledb-*.so /usr/local/lib/postgresql/

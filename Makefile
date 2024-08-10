@@ -22,6 +22,7 @@ TAG_OSS=-t $(TAG_VERSION)-oss $(if $(BETA),,-t $(TAG_LATEST)-oss)
 
 PGVECTOR_VERSION=v0.7.2
 PGAI_VERSION=v0.3.0
+PGMQ_VERSION=v1.4.0
 
 default: image
 
@@ -38,6 +39,7 @@ default: image
 		--build-arg OSS_ONLY=" -DAPACHE_ONLY=1" \
 		--build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) \
 		--build-arg PGAI_VERSION=$(PGAI_VERSION) \
+		--build-arg PGMQ_VERSION=$(PGMQ_VERSION) \
 		$(TAG_OSS) $(PUSH_MULTI) .
 	touch .multi_$(TS_VERSION)_$(PG_VER)_oss
 	docker buildx rm multibuild
@@ -55,16 +57,17 @@ default: image
 		--build-arg PG_MAJOR_VERSION=$(PG_MAJOR_VERSION) \
 		--build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) \
 		--build-arg PGAI_VERSION=$(PGAI_VERSION) \
+		--build-arg PGMQ_VERSION=$(PGMQ_VERSION) \
 		$(TAG) $(PUSH_MULTI) .
 	touch .multi_$(TS_VERSION)_$(PG_VER)
 	docker buildx rm multibuild
 
 .build_$(TS_VERSION)_$(PG_VER)_oss: Dockerfile
-	docker build --build-arg OSS_ONLY=" -DAPACHE_ONLY=1" --build-arg PG_VERSION=$(PG_VER_NUMBER) --build-arg PG_MAJOR_VERSION=$(PG_MAJOR_VERSION) --build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) --build-arg PGAI_VERSION=$(PGAI_VERSION) $(TAG_OSS) .
+	docker build --build-arg OSS_ONLY=" -DAPACHE_ONLY=1" --build-arg PG_VERSION=$(PG_VER_NUMBER) --build-arg PG_MAJOR_VERSION=$(PG_MAJOR_VERSION) --build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) --build-arg PGAI_VERSION=$(PGAI_VERSION) --build-arg PGMQ_VERSION=$(PGMQ_VERSION) $(TAG_OSS) .
 	touch .build_$(TS_VERSION)_$(PG_VER)_oss
 
 .build_$(TS_VERSION)_$(PG_VER): Dockerfile
-	docker build --build-arg PG_VERSION=$(PG_VER_NUMBER) --build-arg PG_MAJOR_VERSION=$(PG_MAJOR_VERSION) --build-arg TS_VERSION=$(TS_VERSION) --build-arg PREV_IMAGE=$(PREV_IMAGE) --build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) --build-arg PGAI_VERSION=$(PGAI_VERSION) $(TAG) .
+	docker build --build-arg PG_VERSION=$(PG_VER_NUMBER) --build-arg PG_MAJOR_VERSION=$(PG_MAJOR_VERSION) --build-arg TS_VERSION=$(TS_VERSION) --build-arg PREV_IMAGE=$(PREV_IMAGE) --build-arg PGVECTOR_VERSION=$(PGVECTOR_VERSION) --build-arg PGAI_VERSION=$(PGAI_VERSION) --build-arg PGMQ_VERSION=$(PGMQ_VERSION) $(TAG) .
 	touch .build_$(TS_VERSION)_$(PG_VER)
 
 image: .build_$(TS_VERSION)_$(PG_VER)
