@@ -88,7 +88,7 @@ RUN set -ex; \
         libssl-dev \
         make \
         pkg-config \
-	    postgresql-server-dev-${PG_VERSION} \
+	    postgresql-server-dev-${PG_VERSION}; \
     git clone --branch ${PGMQ_VERSION} https://github.com/tembo-io/pgmq.git /build/pgmq; \
     cd /build/pgmq; \
     cd pgmq-extension; \
