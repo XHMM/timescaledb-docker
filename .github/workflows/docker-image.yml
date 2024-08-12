@@ -20,6 +20,7 @@ env:
 jobs:
   # Build multi-arch TimescaleDB images for both TSL and OSS code.
   timescaledb:
+    environment: docker
     name: PG${{ matrix.pg }}${{ matrix.oss }}
     runs-on: ubuntu-latest
     strategy:
