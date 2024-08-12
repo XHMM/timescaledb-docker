@@ -71,7 +71,7 @@ RUN set -ex; \
     cd /build/pgmq/pgmq-extension; \
     make; \
     make install; \
-    make install-pg-partman; \
+    # make install-pg-partman; \
     apk del .pgmq-deps
 
 # install pgai only on pg16+ and not on 32 bit arm
