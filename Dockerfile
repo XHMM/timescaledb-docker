@@ -64,7 +64,6 @@ RUN set -ex; \
         curl \
         gcc \
         git \
-        libressl-dev \
         make \
         pkgconf \
         postgresql${PG_VERSION}-dev; \
