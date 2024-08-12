@@ -68,7 +68,7 @@ RUN set -ex; \
         pkgconf \
         postgresql${PG_VERSION}-dev; \
     git clone --branch ${PGMQ_VERSION} https://github.com/tembo-io/pgmq /build/pgmq; \
-    cd /build/pgmq; \
+    cd /build/pgmq/pgmq-extension; \
     make; \
     make install; \
     make install-pg-partman; \
