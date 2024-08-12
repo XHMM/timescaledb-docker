@@ -67,7 +67,7 @@ RUN set -ex; \
         make \
         pkgconf \
         postgresql${PG_VERSION}-dev; \
-    git clone --branch ${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git /build/pgmq; \
+    git clone --branch ${PGMQ_VERSION} https://github.com/tembo-io/pgmq /build/pgmq; \
     cd /build/pgmq; \
     make; \
     make install; \
