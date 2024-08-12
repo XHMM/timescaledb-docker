@@ -64,9 +64,9 @@ RUN set -ex; \
         curl \
         gcc \
         git \
-        libssl-dev \
+        libressl-dev \
         make \
-        pkg-config \
+        pkgconf \
         postgresql${PG_VERSION}-dev; \
     git clone --branch ${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git /build/pgmq; \
     cd /build/pgmq; \
