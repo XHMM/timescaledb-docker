@@ -55,6 +55,26 @@ RUN set -ex; \
     make install; \
     apk del .vector-deps
 
+ARG PGMQ_VERSION
+RUN set -ex; \
+    apk update; \
+    apk add --no-cache --virtual .pgmq-deps \
+        ca-certificates \
+        clang \
+        curl \
+        gcc \
+        git \
+        libssl-dev \
+        make \
+        pkg-config \
+        postgresql-server-dev-${PG_VERSION}; \
+    git clone --branch ${PGVECTOR_VERSION} https://github.com/pgvector/pgvector.git /build/pgmq; \
+    cd /build/pgmq; \
+    make; \
+    make install; \
+    make install-pg-partman; \
+    apk del .pgmq-deps
+
 # install pgai only on pg16+ and not on 32 bit arm
 ARG PGAI_VERSION
 ARG PG_MAJOR_VERSION
