@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         pg: [16]
-        oss: ["-oss"]
+        oss: [""]
     steps:
       - uses: actions/checkout@v4
 
