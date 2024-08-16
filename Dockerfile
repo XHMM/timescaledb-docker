@@ -79,7 +79,7 @@ RUN set -ex; \
 ENV PGROONGA_VERSION=3.2.2 \
     GROONGA_VERSION=14.0.6
 
-COPY pgroonga/build.sh /
+COPY --chmod=0755 pgroonga/build.sh /build.sh
 RUN \
   apk add --no-cache --virtual=.build-dependencies \
     apache-arrow-dev \
