@@ -16,7 +16,7 @@ wget https://packages.groonga.org/source/groonga/groonga-${GROONGA_VERSION}.tar.
 tar xf groonga-${GROONGA_VERSION}.tar.gz
 pushd groonga-${GROONGA_VERSION}
 
-pushd pgroonga-vendor
+pushd pgroonga
 ruby download_mecab.rb
 popd
 
