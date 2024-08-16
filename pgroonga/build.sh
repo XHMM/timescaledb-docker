@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# from https://github.com/pgroonga/docker/blob/3.2.2/alpine/build.sh
+# copied from https://github.com/pgroonga/docker/blob/3.2.2/alpine/build.sh
+
 set -eux
 
 PGROONGA_VERSION=$1
@@ -8,14 +9,14 @@ GROONGA_VERSION=$2
 
 MECAB_VERSION=0.996
 
-mkdir build
-pushd build
+mkdir pgroonga-build
+pushd pgroonga-build
 
 wget https://packages.groonga.org/source/groonga/groonga-${GROONGA_VERSION}.tar.gz
 tar xf groonga-${GROONGA_VERSION}.tar.gz
 pushd groonga-${GROONGA_VERSION}
 
-pushd vendor
+pushd pgroonga-vendor
 ruby download_mecab.rb
 popd
 
@@ -36,4 +37,4 @@ make install
 popd
 
 popd
-rm -rf build
+rm -rf pgroonga-build
