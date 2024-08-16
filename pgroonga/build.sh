@@ -9,14 +9,14 @@ GROONGA_VERSION=$2
 
 MECAB_VERSION=0.996
 
-mkdir pgroonga-build
-pushd pgroonga-build
+mkdir build-pgroonga
+pushd build-pgroonga
 
 wget https://packages.groonga.org/source/groonga/groonga-${GROONGA_VERSION}.tar.gz
 tar xf groonga-${GROONGA_VERSION}.tar.gz
 pushd groonga-${GROONGA_VERSION}
 
-pushd pgroonga
+pushd vendor
 ruby download_mecab.rb
 popd
 
@@ -37,4 +37,4 @@ make install
 popd
 
 popd
-rm -rf pgroonga-build
+rm -rf build-pgroonga
